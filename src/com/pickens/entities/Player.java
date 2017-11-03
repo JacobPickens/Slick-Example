@@ -1,5 +1,7 @@
 package com.pickens.entities;
 
+import java.util.Random;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -25,10 +27,14 @@ public class Player {
 	private WallManager wm; // This is just an instance of all the walls on the map for collision purposes
 	private Rectangle bounds; // The bounding box of the player for collision purposes
 	
+	private Random r;
+	
 	public Player(float x, float y, WallManager wm) {
 		this.x = x;
 		this.y = y;
 		this.wm = wm;
+		
+		r = new Random();
 		
 		bounds = new Rectangle(x, y, 32, 32);
 		
@@ -37,7 +43,11 @@ public class Player {
 	
 	public void render(Graphics g) {
 		// Just drawing a red rectangle at the exact position of the player
-		g.setColor(Color.red);
+		if(Main.score > 12) {
+			g.setColor(new Color(r.nextFloat(),r.nextFloat(),r.nextFloat()));
+		} else {
+			g.setColor(Color.red);
+		}
 		g.fillRect(x, y, 32, 32);
 	}
 	

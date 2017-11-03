@@ -1,5 +1,7 @@
 package com.pickens.entities;
 
+import java.util.Random;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -20,6 +22,8 @@ public class Wall {
 	Rectangle top;
 	Rectangle bottom;
 	
+	Random r;
+	
 	float x, y, holeY, holeSize;
 	
 	boolean scored = false;
@@ -31,13 +35,19 @@ public class Wall {
 		this.holeSize = holeSize;
 		this.wm = wm;
 		
+		r = new Random();
+		
 		top = new Rectangle(x, y, 8, holeY);
 		bottom = new Rectangle(x, holeY+holeSize, 8, Constants.HEIGHT-(holeY+holeSize));
 	}
 	
 	public void render(Graphics g) {
 		// Instead of drawing an arbitrary rectangle like I did in the player class, I just drew the literal bounding boxes
-		g.setColor(Color.red);
+		if(Main.score > 12) {
+			g.setColor(new Color(r.nextFloat(),r.nextFloat(),r.nextFloat()));
+		} else {
+			g.setColor(Color.red);
+		}
 		g.fill(top);
 		g.fill(bottom);
 	}
